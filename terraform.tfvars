@@ -9,3 +9,6 @@ ami_id = "ami-019715e0d74f695be"
 
 db_username = "admin"
 db_password = "my_db_pass"
+
+db_password = "my_db_pass"
+db_password = "my_db_pass"
