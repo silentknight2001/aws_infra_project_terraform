@@ -21,13 +21,13 @@ resource "aws_launch_template" "lt" {
 
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
   
-  user_data = base64decode(<<EFO 
+  user_data = base64encode(<<EOF
   #!/bin/bash
   apt update 
   apt install httpd php -y
   systemctl start httpd
   systemctl enable httpd
   echo "Hello from ASG instance" > /var/www/html/index.html
-  EFO
+  EOF
   )
 }
