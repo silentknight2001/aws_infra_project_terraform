@@ -1,2 +1,2 @@
 variable "vpc_id" {}
-variable "public_subnets" { type = string }
+variable "public_subnets" { type = list(string) }
