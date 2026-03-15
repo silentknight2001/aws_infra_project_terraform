@@ -11,6 +11,7 @@ module "alb" {
   vpc_id         = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnet_ids
 }
+
 module "ec2" {
   source        = "./modules/ec2"
   ami_id        = var.ami_id
@@ -26,6 +27,7 @@ module "autoscaling" {
   public_subnets     = module.vpc.public_subnet_ids
   target_group_arn   = module.alb.target_group_arn
 }
+
 module "rds" {
   source          = "./modules/rds"
   private_subnets = module.vpc.private_subnet_ids
