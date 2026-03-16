@@ -3,7 +3,9 @@ resource "aws_autoscaling_group" "asg" {
     max_size = 3
     min_size = 2
     vpc_zone_identifier = var.private_subnets
-
+    
+    health_check_type = "ELB"
+    
     launch_template {
       id = var.launch_template_id
       version = "$Latest"
