@@ -24,7 +24,7 @@ module "ec2" {
 module "autoscaling" {
   source             = "./modules/autoscaling"
   launch_template_id = module.ec2.launch_template_id
-  public_subnets     = module.vpc.public_subnet_ids
+  private_subnets    = module.vpc.private_subnet_ids
   target_group_arn   = module.alb.target_group_arn
 }
 
