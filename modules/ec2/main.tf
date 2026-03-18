@@ -1,4 +1,4 @@
-resource "aws_security_group" "ec2_security_group" {
+resource "aws_security_group" "app-sg" {
   vpc_id = var.vpc_id
   
   ingress {
@@ -12,6 +12,9 @@ resource "aws_security_group" "ec2_security_group" {
     to_port = 0
     protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "app-security-group"
   }
 }
 resource "aws_launch_template" "lt" {
