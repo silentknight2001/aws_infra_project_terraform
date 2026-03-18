@@ -13,6 +13,9 @@ resource "aws_security_group" "alb_sg" {
     protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    Name = "alb-security-group"
+  }
 }
 resource "aws_alb" "this" {
     name = "tf-test-alb"
