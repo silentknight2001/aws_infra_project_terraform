@@ -1,10 +1,15 @@
 resource "aws_db_subnet_group" "tf_db_subnet" {
     name = "tf_test_db_subnet_group"
     subnet_ids = var.private_subnet_ids
+
+    tags = {
+      Name = "tf-test-db-subnet-group"
+    }
 }
 
 resource "aws_security_group" "rds_sg" {
   name   = "rds-sg"
+  description = "Allow MySQL access from application server"
   vpc_id = var.vpc_id
 
   ingress {
@@ -26,11 +31,13 @@ resource "aws_db_instance" "primary" {
 
     allocated_storage = 20
     engine = "mysql"
+    engine_version = 8.0
     instance_class = "db.t3.micro"
 
     db_name = "tf_test_mysql"
     username = var.db_username
     password = var.db_password
+
     multi_az = true
     publicly_accessible = false
 
@@ -39,4 +46,8 @@ resource "aws_db_instance" "primary" {
 
     backup_retention_period = 7
     skip_final_snapshot = true
+
+    tags = {
+      Name = "primary-rds-db"
+    }
 }
