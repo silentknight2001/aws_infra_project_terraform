@@ -30,8 +30,12 @@ module "autoscaling" {
 
 module "rds" {
   source          = "./modules/rds"
-  private_subnets = module.vpc.private_subnet_ids
+  private_subnet_ids = module.vpc.private_subnet_ids
   vpc_id          = module.vpc.vpc_id
   db_username     = var.db_username
   db_password     = var.db_password
+  app_sg_id = module.ec2.app_sg_id
+  providers = {
+    aws.virginia = aws.virginia
+  }
 }
