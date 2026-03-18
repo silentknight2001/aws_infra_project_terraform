@@ -22,7 +22,7 @@ resource "aws_launch_template" "lt" {
   image_id = var.ami_id
   instance_type = var.instance_type
 
-  vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+  vpc_security_group_ids = [aws_security_group.app-sg.id]
   
   user_data = base64encode(<<EOF
   #!/bin/bash
