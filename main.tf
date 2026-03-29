@@ -35,7 +35,9 @@ module "rds" {
   db_username     = var.db_username
   db_password     = var.db_password
   app_sg_id = module.ec2.app_sg_id
+
   providers = {
+    aws = aws
     aws.virginia = aws.virginia
   }
 }
