@@ -14,11 +14,13 @@ module "alb" {
 
 module "ec2" {
   source        = "./modules/ec2"
+  db_endpoint   = module.rds.db_endpoint
+  db_username   = var.db_username
+  db_password   = var.db_password
   ami_id        = var.ami_id
   instance_type = var.instance_type
   vpc_id        = module.vpc.vpc_id
   alb_sg_id     = module.alb.alb_sg_id
-
 }
 
 module "autoscaling" {
@@ -29,15 +31,15 @@ module "autoscaling" {
 }
 
 module "rds" {
-  source          = "./modules/rds"
+  source             = "./modules/rds"
   private_subnet_ids = module.vpc.private_subnet_ids
-  vpc_id          = module.vpc.vpc_id
-  db_username     = var.db_username
-  db_password     = var.db_password
-  app_sg_id = module.ec2.app_sg_id
+  vpc_id             = module.vpc.vpc_id
+  db_username        = var.db_username
+  db_password        = var.db_password
+  app_sg_id          = module.ec2.app_sg_id
 
   providers = {
-    aws = aws
+    aws          = aws
     aws.virginia = aws.virginia
   }
 }
