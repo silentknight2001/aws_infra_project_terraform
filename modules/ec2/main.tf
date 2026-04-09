@@ -47,13 +47,13 @@ rm -f /var/www/html/index.html
 
 cat <<EOT > /var/www/html/index.php
 <?php
-\$conn = pg_connect("host=${var.db_endpoint} dbname=postgres user=${var.db_username} password=${var.db_password}");
+\$conn = pg_connect("host=${var.db_endpoint} port=5432 dbname=tf_test_postgres user=${var.db_username} password=${var.db_password}");
 
 if (!\$conn) {
     die("Connection failed test_2nd");
 }
 
-echo "Connected successfully";
+echo "Postgress DB Connected successfully";
 ?>
 EOT
 
