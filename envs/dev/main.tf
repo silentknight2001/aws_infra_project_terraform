@@ -21,6 +21,19 @@ module "ec2" {
   instance_type = var.instance_type
   vpc_id        = module.vpc.vpc_id
   alb_sg_id     = module.alb.alb_sg_id
+  bastion_sg_id = module.bastion.bastion_sg_id
+}
+
+module "bastion" {
+  source = "../../modules/Bastion"
+
+  vpc_id = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+  ami_id = var.ami_id
+  key_name = var.key_name
+
+  allowed_ip = [ "0.0.0.0/0" ]  
+                                  #  ["YOUR_IP/32"] 32 means only one IP
 }
 
 module "autoscaling" {
@@ -37,6 +50,7 @@ module "rds" {
   db_username        = var.db_username
   db_password        = var.db_password
   app_sg_id          = module.ec2.app_sg_id
+  bastion_sg_id      = module.bastion.bastion_sg_id 
 
   providers = {
     aws          = aws
