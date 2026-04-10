@@ -8,3 +8,4 @@ variable "db_endpoint" {
 }
 variable "db_username" {}
 variable "db_password" {}
+variable "bastion_sg_id" {}
